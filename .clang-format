@@ -1,5 +1,0 @@
----
-Language: Java
-BasedOnStyle: Google
-DerivePointerAlignment: false
-ColumnLimit: 80

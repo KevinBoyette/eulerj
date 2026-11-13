@@ -1,8 +1,8 @@
 /**
  * https://projecteuler.net/problem=4
  *
- * <p>A palindromic number reads the same both ways. The largest palindrome made
- * from the product of two 2-digit numbers is 9009 = 91 x 99.
+ * <p>A palindromic number reads the same both ways. The largest palindrome made from the product of
+ * two 2-digit numbers is 9009 = 91 x 99.
  *
  * <p>Find the largest palindrome made from the product of two 3-digit numbers.
  */
@@ -10,16 +10,14 @@ public class Problem00004 {
   record DigitRange(long low, long high) {
     DigitRange {
       if (low < 1 || low > high) {
-        throw new IllegalArgumentException(
-            "invalid range [" + low + ", " + high + "]");
+        throw new IllegalArgumentException("invalid range [" + low + ", " + high + "]");
       }
     }
 
     /** Requires 1 <= digits <= 9 (larger values overflow 64-bit products). */
     static DigitRange of(int digits) {
       if (digits < 1 || digits > 9) {
-        throw new IllegalArgumentException(
-            "digits must be in [1, 9], got " + digits);
+        throw new IllegalArgumentException("digits must be in [1, 9], got " + digits);
       }
 
       long high = 1;
@@ -86,7 +84,6 @@ public class Problem00004 {
     check(largestPalindromeProduct(2) == 9009, "the example should pass");
 
     System.out.println(largestPalindromeProduct(3));
-    check(
-        largestPalindromeProduct(3) == 906609, "the answer should be correct");
+    check(largestPalindromeProduct(3) == 906609, "the answer should be correct");
   }
 }
