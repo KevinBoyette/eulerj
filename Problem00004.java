@@ -7,7 +7,28 @@
  * <p>Find the largest palindrome made from the product of two 3-digit numbers.
  */
 public class Problem00004 {
-  record Range(long low, long high) {}
+  record DigitRange(long low, long high) {
+    DigitRange {
+      if (low < 1 || low > high) {
+        throw new IllegalArgumentException(
+            "invalid range [" + low + ", " + high + "]");
+      }
+    }
+
+    /** Requires 1 <= digits <= 9 (larger values overflow 64-bit products). */
+    static DigitRange of(int digits) {
+      if (digits < 1 || digits > 9) {
+        throw new IllegalArgumentException(
+            "digits must be in [1, 9], got " + digits);
+      }
+
+      long high = 1;
+      for (int i = 0; i < digits; ++i) {
+        high *= 10;
+      }
+      return new DigitRange(high / 10, high - 1);
+    }
+  }
 
   static boolean isPalindrome(long number) {
     long original = number;
@@ -20,26 +41,12 @@ public class Problem00004 {
     return reversed == original;
   }
 
-  /** Requires 1 <= digits <= 9 (larger values overflow 64-bit products). */
-  static Range digitRange(int digits) {
-    if (digits < 1 || digits > 9) {
-      throw new IllegalArgumentException(
-          "digits must be in [1, 9], got " + digits);
-    }
-
-    long high = 1;
-    for (int i = 0; i < digits; ++i) {
-      high *= 10;
-    }
-    return new Range(high / 10, high - 1);
-  }
-
   static long largestPalindromeProduct(int digits) {
     if (digits == 1) {
       return 9;
     }
 
-    Range r = digitRange(digits);
+    var r = DigitRange.of(digits);
     long largest = 0;
 
     // NOTE(kevin): all even length palindromes are multiples of 11.
